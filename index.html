@@ -45,6 +45,17 @@
             opacity: 1;
         }
 
+        .btns{
+      position: fixed;
+      padding: 10px;
+      background-color: transparent;
+      transition: 0.3s;
+    }
+
+    .btns.bgshow{
+      background-color: lightblue;
+    }
+
         
     </style>
 </head>
@@ -52,8 +63,8 @@
 <body>
 <div class="bg__img"></div>
 
-<div class="container">
-    <div class="btns">
+    <div class="container">
+        <div class="btns">
             <button class="btn_toggle">배경색상변경_토글버튼</button>
             <button class="btn--reset">배경색상변경_리셋</button>
             <button class="btn--bggray">배경색상변경_그레이</button>
@@ -89,6 +100,17 @@
             // document.body.classList.toggle('bg--img');
             bgContainer.classList.add('bg__img--show');
         });
+
+        const navContainer = document.querySelector('.btns');
+        document.addEventListener('scroll', function () {
+            // console.log(window.scrollY);
+        if (window.scrollY > 100) {
+        navContainer.classList.add('bgshow');
+        } else {
+        navContainer.classList.remove('bgshow');
+        }
+        });
+
 
     </script>
 </body>
