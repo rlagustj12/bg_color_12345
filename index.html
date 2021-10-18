@@ -4,48 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bgtest</title>
-    <style>
-        body{
-            background-color: lightyellow;
-            transition: all 1s;
-            height: 2000px;
-            margin: 0;
-        }
-        .bgcolor--blue{
-            background-color: lightblue;
-        }
-        .bgcolor--gray{
-            background-color: lightgray;
-        }
+    <title>bg_scroll</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
-        /*.bg--img{
-            background-image: url("bg_img.jpg");
-        }*/
+<style>
+    
+    
+    body{
+      background-color: lightyellow;
+      transition: all 1s;
+      margin: 0;
+      height: 2000px;
+    }
+    
+    .bgcolor--blue{
+      background-color: lightblue;
+    }
+    
+    .bgcolor--gray{
+      background-color: lightgray;
+    }
+    
+    .bg--img{
+      margin: 0;
+      background-image: url(bg_img.jpg);
+    }
+    
+    .btns{
+      position: relative;
+      top: 60px;
+      width: 600px;
+      margin: auto;
+      text-align: center;
+    }
 
-        .btns{
-            position: relative;
-            top: 60px;
-            width: 600px;
-            margin: auto;
-            text-align: center;
-        }
+    .bg__img{
+      margin: 0;
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: url(bg_img.jpg);
+      transition: all 1s;
+      opacity: 0;
+    }
 
-        .bg__img{
-            margin: 0;
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            background: url(bg_img.jpg);
-            transition: all 1s;
-            opacity: 0;
-        }
+    .bg__img--show{
+      opacity: 1;
+    }
 
-        .bg__img--show{
-            opacity: 1;
-        }
-
-        .btns{
+    .btns{
       position: fixed;
       padding: 10px;
       background-color: transparent;
@@ -53,15 +61,41 @@
     }
 
     .btns.bgshow{
-      background-color: lightblue;
+      background-color: skyblue;
     }
 
-        
-    </style>
+    .arrow_up{
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      width: 70px;
+      height: 70px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(33, 112, 231);
+      border-radius: 50%;
+      text-align: center;
+      opacity: 0;
+    }
+
+    .arrow_up span{
+      line-height: 70px;
+      font-size: 50px;
+    }
+
+    .arrow_up.visible{
+      opacity: 1;
+    }
+
+  
+    
+</style>
+
 </head>
 
+
 <body>
-<div class="bg__img"></div>
+
+    <div class="bg__img"></div>
 
     <div class="container">
         <div class="btns">
@@ -72,46 +106,78 @@
         </div>
     </div>
 
+    <section id="home">
+        <div class="wrapper"></div>
+    </section>
+
+    <button class="arrow_up visible" style="">
+        <span class="material-icons">
+            arrow_upward
+        </span>
+    </button>
+
+
     <script>
-        //주석입력 설명
-        const btnToggle = document.querySelector('.btn_toggle');
-        //addEventListener('이벤트', 실행함수);
-        btnToggle.addEventListener('click',function () {
-            bgContainer.classList.remove('bg__img--show');
-            document.body.classList.toggle('bgcolor--blue');
-            //console.log('버튼클릭');
-        });    
 
-        const btnReset = document.querySelector('.btn--reset');
-        btnReset.addEventListener('click',function () {
-            bgContainer.classList.remove('bg__img--show');
-            document.body.classList.remove('bgcolor--blue', 'bgcolor--gray', 'bg--img');
-        });
+        
+    const bgContainer = document.querySelector('.bg__img');
+    const btnToggle = document.querySelector('.btn_toggle');
+    // addEventListener('이벤트', 실행함수);
+    btnToggle.addEventListener('click', function () {
+      bgContainer.classList.remove('bg__img--show');
+      document.body.classList.toggle('bgcolor--blue');
+      //console.log('버튼클릭');
+    });
+    const btnReset = document.querySelector('.btn--reset');
+    //document.querySelector('.btn--reset').addEventlistener
+    btnReset.addEventListener('click', function () {
+      bgContainer.classList.remove('bg__img--show');
+      document.body.classList.remove('bgcolor--blue', 'bgcolor--gray', 'bg--img');
+    });
+    
+    const btnBgGray = document.querySelector('.btn--bggray');
+    btnBgGray.addEventListener('click', function () {
+      bgContainer.classList.remove('bg__img--show');
+      document.body.classList.add('bgcolor--gray');
+    });
 
-        const btnBgGray = document.querySelector('.btn--bggray');
-        btnBgGray.addEventListener('click',function () {
-            bgContainer.classList.remove('bg__img--show');
-            document.body.classList.add('bgcolor--gray');
-        });
+    const btnBgImg = document.querySelector('.btn--bgimg');
+    btnBgImg.addEventListener('click', function () {
+      // document.body.classlist.add('bg--img');
+      bgContainer.classList.add('bg__img--show');
+    });
 
-        const bgContainer = document.querySelector('.bg__img');
-        const btnBgImg = document.querySelector('.btn--bgimg');
-        btnBgImg.addEventListener('click',function () {
-            // document.body.classList.toggle('bg--img');
-            bgContainer.classList.add('bg__img--show');
-        });
+    const navContainer = document.querySelector('.btns');
+    /*const navToggle = document.querySelector('.btns__toggle-btn');*/
+    document.addEventListener('scroll', function () {
+    /*console.log(window.scrollY);*/
+    if (window.scrollY > 60) {
+      navContainer.classList.add('bgshow');
+      /*navToggle.classList.add('bgshow');*/
+      /* console.log('show');*/
+    } else {
+      navContainer.classList.remove('bgshow');
+      /*navToggle.classList.remove('bgshow');*/
+    }
+  });
 
-        const navContainer = document.querySelector('.btns');
-        document.addEventListener('scroll', function () {
-            // console.log(window.scrollY);
-        if (window.scrollY > 100) {
-        navContainer.classList.add('bgshow');
-        } else {
-        navContainer.classList.remove('bgshow');
-        }
-        });
+    const arrowUp = document.querySelector('.arrow_up');
+    document.addEventListener('scroll', function () {
+      if ( window.scrollY > 500) {
+        arrowUp.classList.add('visible');
+      } else {
+        arrowUp.classList.remove('visible');
+      }
+    });
 
+    const home = document.querySelector('#home');
+    arrowUp.addEventListener('click', function () {
+      home.scrollIntoView({behavior:"smooth"});
+    });
+
+  
 
     </script>
+
 </body>
 </html>
